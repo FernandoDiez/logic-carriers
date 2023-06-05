@@ -1,12 +1,15 @@
 'use client'
 import { useState } from 'react'
 import styles from './page.module.css'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
+  const router = useRouter()
+
   const [formValues, setFormValues] = useState(
     {
-      userName: '',
-      password: ''
+      username: 'leiva',
+      password: 'logic'
     }
   )
 
@@ -20,15 +23,15 @@ export default function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // const JSONdata = JSON.stringify(formValues)
-    const response = await fetch('http://carriers.logistics.com/api/login', {
+    const response = await fetch(`http://carriers.logic.com/api/login?username=${formValues.username}&password=${formValues.password}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
-      // body: JSONdata
     })
 
     const result = await response.json()
-    console.log(result)
+    if (result.data.length > 0) {
+      router.push('https://gesprin.es')
+    }
   }
 
   return (

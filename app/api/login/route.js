@@ -8,7 +8,7 @@ export async function GET(request) {
   const password = md5(searchParams.get('password'))
 
   const client = await clientPromise;
-  const db = client.db("logistics");
+  const db = client.db("logic");
   const users = await db.collection("users").find({ username: username, password: password }).toArray();
   return NextResponse.json({ status: 200, data: users })
 }
